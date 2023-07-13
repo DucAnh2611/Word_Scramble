@@ -7,7 +7,7 @@ export default function NavigationBar() {
 
             <NavLogo>Word scramble game</NavLogo>
 
-            <NavLogo>A38659 Phạm trung nguyên</NavLogo>
+            <NavLogo>A38253 Nguyễn Hoàng Đức Anh</NavLogo>
 
         </NavWrap>
     )

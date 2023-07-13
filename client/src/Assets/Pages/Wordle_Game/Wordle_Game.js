@@ -13,9 +13,10 @@ export default function WordleGame() {
     const getList = () => {
         let baseList = require("../../../source.json");
 
-        let randomIdx = Math.floor(Math.random() * baseList.length) <= 5 ? 5 : Math.floor(Math.random() * baseList.length)
+        let randomIdx = Math.floor(Math.random() * baseList.length);
+        let fixRandomUndefined = randomIdx <= 5 ? 5 : randomIdx;
 
-        SetListQuestion(shuffleArray(baseList.filter((_, idx) => idx >= randomIdx-5 && idx < randomIdx)));
+        SetListQuestion(shuffleArray(baseList.filter((_, idx) => idx >= fixRandomUndefined-5 && idx < fixRandomUndefined)));
         setCount(0);
     };
 
@@ -121,20 +122,23 @@ export default function WordleGame() {
       
       return count;
     };
-    
 
     useMemo(() => {
 
         if(count >=0 ) {
+
             SetUserGuess(userGuess => userGuess.map((e, idx) => {
                 if(idx === count) {
                     return Array.from(listQuestion[count].key).map(e=> '');
                 }
                 return [...e]
             }));
+
             SetCurrentAns(shuffleArray(Array.from(listQuestion[count].key)));
+
+            document.title = `PLAYING GAME ${count+1}`;
         }
-        
+
     }, [count]);
 
     useMemo(() => {
@@ -160,7 +164,8 @@ export default function WordleGame() {
 
     useEffect(() => {
         getList();
-        localStorage.clear()
+        localStorage.clear();
+        document.title = "PLAYING GAME";
     }, []);
 
 
